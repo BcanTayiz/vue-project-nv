@@ -1,12 +1,13 @@
 <template>
     <div class="container">
         <div v-for="comic in comics" :key="comic.id"
-            :class="{ 'comic-container': true, 'borderStyle': comic.favorite, 'filterStyle': !comic.favorite }">
+            :class="{ 'comic-container': true, 'borderStyle': FavoritedIDs.includes(comic.id), 'filterStyle': !FavoritedIDs.includes(comic.id) }">
             <div class="material-container">
                 <section class="header-section">
                     <h2>{{ comic.title }}</h2>
                     <h3 @click="toggleFavorite(comic)">
-                        {{ comic.favorite ? "Unfavorite" : "Favorite" }}
+                        <img v-if="FavoritedIDs.includes(comic.id)" src="../assets/dislike.png"/>
+                        <img v-else src="../assets/like.png"/>
                     </h3>
                 </section>
                 <div class="content-container">
@@ -36,11 +37,12 @@
 
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, watch } from 'vue';
 import router from '../router/index'
 import store from '../store';
+import { ref,computed } from 'vue';
 
-const { comics, favoriteNumber,toggleFavorite } = defineProps(['comics', 'favoriteNumber','toggleFavorite'])
+const { comics, favoriteNumber,toggleFavorite} = defineProps(['comics', 'favoriteNumber','toggleFavorite'])
 
 const storeCommit = async(comic) => {
     store.commit('loadComic',comic)
@@ -54,13 +56,20 @@ const handleDetail = async (comic) => {
     
 }
 
-console.log(comics)
+const FavoritedIDs = computed(() => store.state.favoriteIds);
+console.log(FavoritedIDs)
 
 </script>
 
 
 
 <style scoped>
+
+.container{
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+}
 .comic-container {
     width: 30vw;
     border: 2px solid black;
@@ -111,8 +120,8 @@ console.log(comics)
 }
 
 .thumbnail-img {
-    width: 300px;
-    height: 300px;
+    width: 18vw;
+    height: 30vh;
 }
 
 
@@ -155,4 +164,44 @@ console.log(comics)
     margin: auto;
     border-radius: 20px;
 }
+
+.header-section h3 img{
+    width: 5vw;
+    height: 8vh;
+    background-color: aliceblue;
+    border: 2px solid orange;
+    border-radius: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    
+    .container{
+        font-size: 8px;
+    }
+    .header-section{
+        font-size: 7px;
+        text-align: center;
+    }
+
+    .creators{
+        font-size: 7px !important;
+    }
+
+    .details-section{
+        padding: 5px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+
+    .header-section h3 img{
+    width: 40px;
+    height: 30px;
+    margin-left: 10px;
+    background-color: aliceblue;
+    border: 2px solid orange;
+    border-radius: 20px;
+}
+  
+}
+
 </style>

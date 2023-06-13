@@ -174,4 +174,17 @@ main{
     margin: auto;
     border-radius: 20px;
 }
+
+@media only screen and (max-width: 600px) {
+    header {
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
+  nav{
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
+}
 </style>
