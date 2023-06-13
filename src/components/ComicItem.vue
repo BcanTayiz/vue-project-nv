@@ -23,6 +23,10 @@
                                 <p>{{ creator.role }}</p>
                             </div>
                         </div>
+
+                        <section class="details-section" @click="handleDetail(comic)">
+                            <h2>Details</h2>
+                        </section>
                     </div>
                 </div>
             </div>
@@ -33,7 +37,22 @@
 
 <script setup>
 import { defineProps } from 'vue';
+import router from '../router/index'
+import store from '../store';
+
 const { comics, favoriteNumber,toggleFavorite } = defineProps(['comics', 'favoriteNumber','toggleFavorite'])
+
+const storeCommit = async(comic) => {
+    store.commit('loadComic',comic)
+}
+
+const handleDetail = async (comic) => {
+    await storeCommit(comic)
+    console.log(comic)
+    console.log(comic.id)
+    router.push(`/details/${comic.id}`)
+    
+}
 
 console.log(comics)
 
@@ -55,7 +74,6 @@ console.log(comics)
     background-color: rgb(0, 0, 0);
     border-radius: 20px;
     color: white;
-    overflow: auto;
 }
 
 .borderStyle {
@@ -72,7 +90,6 @@ console.log(comics)
     background-color: rgb(0, 0, 0);
     border-radius: 20px;
     color: white;
-    overflow: auto;
 }
 
 .filterStyle {
@@ -129,5 +146,13 @@ console.log(comics)
 .filterStyle {
     filter: grayscale(100%);
     transition: filter 0.5s ease;
+}
+
+.details-section{
+    cursor: pointer;
+    background-color: orange;
+    width: 10vw;
+    margin: auto;
+    border-radius: 20px;
 }
 </style>
