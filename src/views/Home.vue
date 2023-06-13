@@ -9,6 +9,10 @@
         
       </header>
       <div class="container">
+        <div v-if="comics.length == 0" class="loading-div">
+          <h2>Loading...</h2>
+          <ProgressBar/>
+        </div>
         <ComicItem
           :comics="comics"
           :favoriteNumber="favoriteNumber"
@@ -23,6 +27,7 @@
   import { ref,computed } from 'vue';
   import axios from 'axios';
   import ComicItem from '../components/ComicItem.vue';
+  import ProgressBar from '../components/ProgressBar.vue';
   import store from '../store';
 
   const FavoritedIDs = computed(() => store.state.favoriteIds);
@@ -96,6 +101,18 @@ const deleteFavorite = async(id) => {
   .icon{
     width:35x;
     height: 35px;
+  }
+
+  .loading-div{
+    text-align: center;
+    align-items: center;
+    margin: auto;
+  }
+
+  .loading-div section{
+    background-color: rgb(10, 23, 35);
+    width: 100%;
+    height: 20px;
   }
 
   @media only screen and (max-width: 600px) {

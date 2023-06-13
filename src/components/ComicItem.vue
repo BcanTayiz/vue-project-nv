@@ -14,10 +14,10 @@
                     <p>{{ comic.description }}</p>
                     <img :src="comic.thumbnail.path + '.' + comic.thumbnail.extension" alt="" class="thumbnail-img">
                     <div>
-                        <section>
+                        <section v-if="comic.creators.available != 0">
                             <h2>Creators</h2>
                         </section>
-                        <div class="creators-container">
+                        <div class="creators-container" v-if="comic.creators.available != 0">
 
                             <div v-for="creator in comic.creators.items" class="creators">
                                 <p>{{ creator.name }}</p>
@@ -83,6 +83,9 @@ console.log(FavoritedIDs)
     background-color: rgb(0, 0, 0);
     border-radius: 20px;
     color: white;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
 }
 
 .borderStyle {
@@ -99,6 +102,9 @@ console.log(FavoritedIDs)
     background-color: rgb(0, 0, 0);
     border-radius: 20px;
     color: white;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
 }
 
 .filterStyle {
