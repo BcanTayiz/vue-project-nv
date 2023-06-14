@@ -12,9 +12,13 @@ import { ref, onMounted } from 'vue';
 const progress = ref(0);
 
 const updateProgress = () => {
-    setInterval(() => {
-        progress.value += 10
+    const interval = setInterval(() => {
+        
+        if (progress.value <= 100){
+            progress.value += 50
+        }
     },100)
+
 };
 
 onMounted(() => {
