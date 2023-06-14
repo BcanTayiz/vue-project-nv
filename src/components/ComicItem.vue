@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div v-for="comic in comics" :key="comic.id"
+        <div :key="comic.id"
             :class="{ 'comic-container': true, 'borderStyle': FavoritedIDs.includes(comic.id), 'filterStyle': !FavoritedIDs.includes(comic.id) }">
             <div class="material-container">
                 <section class="header-section">
@@ -42,7 +42,7 @@ import router from '../router/index'
 import store from '../store';
 import { ref,computed } from 'vue';
 
-const { comics, favoriteNumber,toggleFavorite} = defineProps(['comics', 'favoriteNumber','toggleFavorite'])
+const { comic, favoriteNumber,toggleFavorite} = defineProps(['comic', 'favoriteNumber','toggleFavorite'])
 
 const storeCommit = async(comic) => {
     store.commit('loadComic',comic)
@@ -69,16 +69,22 @@ console.log(FavoritedIDs)
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 0 0 calc(33.33% - 20px);
+    align-items: center;
+    justify-content: center;
 }
 .comic-container {
-    width: 30vw;
+    width: 25vw;
     border: 2px solid black;
     transition: border 0.5s ease;
     margin: 10px;
     margin-left: 30px;
     text-align: center;
     align-items: center;
-    flex: 0 0 calc(30% - 20px);
+    
     /* Sütunlarda 3 öğe olsun, boşlukları da hesaplamak için flex değeri ayarlandı */
     background-color: rgb(0, 0, 0);
     border-radius: 20px;
@@ -89,7 +95,7 @@ console.log(FavoritedIDs)
 }
 
 .borderStyle {
-    width: 30vw;
+    width: 25vw;
     height: 100%;
     border: 2px solid black;
     transition: border 0.5s ease;
@@ -97,7 +103,6 @@ console.log(FavoritedIDs)
     margin-left: 30px;
     text-align: center;
     align-items: center;
-    flex: 0 0 calc(30% - 20px);
     /* Sütunlarda 3 öğe olsun, boşlukları da hesaplamak için flex değeri ayarlandı */
     background-color: rgb(0, 0, 0);
     border-radius: 20px;
@@ -181,32 +186,41 @@ console.log(FavoritedIDs)
 
 @media only screen and (max-width: 600px) {
     
-    .container{
+    .container {
         font-size: 8px;
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 calc(100% - 20px);
     }
-    .header-section{
+
+    .comic-container,.borderStyle{
+        width: 70vw;
+        padding: 20px;
+    }
+
+    .header-section {
         font-size: 7px;
         text-align: center;
     }
 
-    .creators{
+    .creators {
         font-size: 7px !important;
     }
 
-    .details-section{
+    .details-section {
         padding: 5px;
         margin-top: 2px;
         margin-bottom: 2px;
     }
 
-    .header-section h3 img{
-    width: 40px;
-    height: 30px;
-    margin-left: 10px;
-    background-color: aliceblue;
-    border: 2px solid orange;
-    border-radius: 20px;
-}
+    .header-section h3 img {
+        width: 40px;
+        height: 30px;
+        margin-left: 10px;
+        background-color: aliceblue;
+        border: 2px solid orange;
+        border-radius: 20px;
+    }
   
 }
 

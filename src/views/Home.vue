@@ -13,8 +13,8 @@
           <h2>Loading...</h2>
           <ProgressBar/>
         </div>
-        <ComicItem
-          :comics="comics"
+        <ComicItem v-for="comic in comics"
+          :comic="comic"
           :favoriteNumber="favoriteNumber"
           :toggleFavorite="toggleFavorite"
         />
@@ -82,7 +82,7 @@ const deleteFavorite = async(id) => {
   
   .container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;    
   }
 
   .favorite{
