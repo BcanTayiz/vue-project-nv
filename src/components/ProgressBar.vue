@@ -14,8 +14,8 @@ const progress = ref(0);
 const updateProgress = () => {
     const interval = setInterval(() => {
         
-        if (progress.value <= 100){
-            progress.value += 50
+        if (progress.value <= 90){
+            progress.value += 10
         }
     },100)
 
